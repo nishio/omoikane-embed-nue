@@ -3,11 +3,11 @@ entrypoint from github actions
 """
 
 import scrapbox_io
-import iterative_commenter
+import nue
 
 
 def main(dry=False):
-    pages = iterative_commenter.main()
+    pages = nue.main()
     scrapbox_io.write_pages(pages)
     print("write ok")
 
