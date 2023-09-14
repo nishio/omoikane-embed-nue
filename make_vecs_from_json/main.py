@@ -98,6 +98,12 @@ def safe_write(obj, name):
     if to_exit:
         raise KeyboardInterrupt
 
+def to_filter(p):
+    keywords = ["#member", "`TO_AI: IGNORE PAGE`"]
+    for k in keywords:
+        if any([k in line for line in p["lines"]]):
+            return True
+    return False
 
 def update_from_scrapbox_json(
     out_index,
@@ -142,6 +148,12 @@ def update_from_scrapbox_json(
     for p in tqdm(pages):
         buf = []
         title = p["title"]
+
+        # filter some pages
+        print(title, to_filter(p))
+        if to_filter(p):
+            continue
+
         for line in p["lines"]:
             buf.append(line)
             body = clean(" ".join(buf))
