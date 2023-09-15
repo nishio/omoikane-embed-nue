@@ -56,7 +56,8 @@ jobs:
             echo "Failed to get latest release tag."
           fi
 
-      - name: backup previous pickle
+      - name: backup previous pickle if exists
+        continue-on-error: true
         run: cp "$PROJECT_NAME.pickle" prev.pickle
 
       - name: Embed (PROJECT_NAME.json to PROJECT_NAME.pickle)
