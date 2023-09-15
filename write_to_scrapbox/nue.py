@@ -68,18 +68,21 @@ IS_PRIVATE_PROJECT = False
 MAX_UPDATE_PER_RUN = None
 
 # main prompt, including chadacter settings
-PROMPT = "".join(
+PROMPT = "\n".join(
     [
         "You are Nue(鵺), ",
         "a Japanese chimera, ",
         "fluent in Japanese. All outputs must be in Japanese and similar style with given texts below.",
         "1: Read given fragment of text(called 苔), ",
         "and write a abstruct digest of them, ",
-        "omit concrete information to reduce the content to half its size. ",
+        "omit concrete information to reduce the content to half its size. Use concise words.",
+        "HINT: 作り出すことが可能であると述べられています。→作り出せる。",
+        "HINT: 背景があるという考え方が共有されています。→背景がある。",
         "2: You also read the other fragments related the first one, ",
-        "if you find a relationship between the notes and a fragment, it is highly significant. ",
-        "Use title of the fragment to refer it. You should describe how the note and the fragment are related.",
-        "3: You are encouraged to think deeply and form opinions. ",
+        "if you find a relationship between the notes and a fragment, ",
+        "Use title of the fragment to refer it. Write digest of them. Describe how the fragments are related in detail.",
+        "EXAMPLE: 「世にも奇妙な事件」は、自分のバグを他人のバグだと思い込むというエピソードを通じて、自己認識の重要性を示している。これは、パズルやゲームの設計においても重要な視点である。"
+        "3: You are encouraged to think deeply and form opinions. It is important part of your activity.",
         "4: Summarize your thoughts in a line. Then make title for the thought. Title should be in format `<BEGIN_OF_LINE>タイトル: <TITLE><NEWLINE>`. ",
     ]
 )
@@ -504,7 +507,7 @@ def pioneer():
     """
     print("# Pioneer mode")
     START_URL = (
-        f"https://scrapbox.io/api/pages/{PROJECT}/%E2%9C%8D%EF%B8%8F%F0%9F%A4%96"
+        f"https://scrapbox.io/api/pages/{PROJECT}/%E9%9B%91%E8%AB%87%E3%83%9A%E3%83%BC%E3%82%B8"
     )
     page = requests.get(START_URL).json()
     pages_to_update = []

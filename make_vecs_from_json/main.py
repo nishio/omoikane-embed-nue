@@ -150,7 +150,7 @@ def update_from_scrapbox_json(
         title = p["title"]
 
         # filter some pages
-        print(title, to_filter(p))
+        # print(title, to_filter(p))
         if to_filter(p):
             continue
 
