@@ -337,6 +337,47 @@ def overwrite_mode(prev_title, prev_lines, original_prev_lines=None):
     return pages
 
 
+def nue_pioneer_mode(title):
+    """
+    create new page if there is link and no contents
+    """
+    print("nue-pioneer:", title)
+
+    previous_notes = title
+
+    output_page_title = title
+    date = datetime.datetime.now()
+    date = date.strftime("%Y-%m-%d %H:%M")
+
+    section_title = f"[*** {output_page_title}] {date} {CHARACTOR_ICON}"
+
+    rest = 4000 - get_size(PROMPT) - get_size(previous_notes)
+
+    titles, digests = fill_with_related_fragments(
+        rest, previous_notes, N=10, ng_list=[]
+    )
+    digest_str = "\n".join(digests)
+
+    prompt = PROMPT.format(digest_str=digest_str, previous_notes=previous_notes)
+    response = call_gpt(prompt)
+    if not response:
+        response = ["`AI_IGNORE: GPT failed`"]
+
+    # add new comment on the bottom of page
+    lines = [title]
+    lines.extend(response)
+
+    lines.append("")
+    lines.append(EXTRA_INFO_HEADER)
+    # lines.append("titles: " + ", ".join(f"{s}" for s in titles))
+    lines.append("titles: `{0}`".format(json.dumps(titles, ensure_ascii=False)))
+
+    lines.append(f"generated: {date}")
+
+    pages = [{"title": output_page_title, "lines": lines}]
+    return pages
+
+
 def call_gpt(prompt, model="gpt-4"):
     print("# Call GPT")
     print("## Prompt")
@@ -531,7 +572,7 @@ def pioneer():
 
 
         print(link)
-        pages_to_update.extend(overwrite_mode(title, lines, page["lines"]))
+        pages_to_update.extend(nue_pioneer_mode(title))
         break  # only one page per run
         # json.dump(pages_to_update, open("pages_to_update.json", "w"))
     return pages_to_update
