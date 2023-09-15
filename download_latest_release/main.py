@@ -6,9 +6,12 @@ Not used in Github Actions.
 """
 import requests
 import os
+import dotenv
+dotenv.load_dotenv()
+PROJECT = os.getenv("PROJECT_NAME")
 
 owner = "nishio"
-repo = "omni"
+repo = "omoikane-embed-" + PROJECT
 output_dir = "."
 
 
