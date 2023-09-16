@@ -3,7 +3,7 @@ name: Pioneering
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 23 * * *'  # JST 8:00
+    - cron: '20 17 * * *'  # JST 2:30
 #    - cron: '0 * * * *'  # every hours
 
 env:
