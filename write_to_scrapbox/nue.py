@@ -379,7 +379,8 @@ def nue_pioneer_mode(title):
     return pages
 
 
-def call_gpt(prompt, model="gpt-4"):
+def call_gpt(prompt, model="gpt-3.5-turbo"):
+    # using gpt-3.5-turbo for low-cost long run
     print("# Call GPT")
     print("## Prompt")
     print(prompt)
